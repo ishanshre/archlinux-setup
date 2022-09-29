@@ -4,36 +4,37 @@
 
 ## Vanila Arch Linux Installation
 
- 1. Dowload Arch Linux from its website
+ 1. Dowload Arch Linux from its website <br>
 		 ```https://archlinux.org/download/```
- 2. Download balena etcher for making bootable USB.
+ 2. Download balena etcher for making bootable USB.<br>
 		 ```https://www.balena.io/etcher/```
-3. Insert USB and flash the arch linux iso to the USB
+3. Insert USB and flash the arch linux iso to the USB<br>
 4. After flashing, reboot the machine and select the boot device as USB. For HP devices F9 key is used for selecting boot devices.
 5. Connect to wired network if possible.
 6. Boot into live iso.
 7. Set your keyboard type. Search using localectl list-keymaps | grep 'type'
-8. Mine is US keyboard so,
+8. Mine is US keyboard so,<br>
 	```# loadkeys us```
-9. If you don't have wired connection but wireless connection. Connect to your wireless connection using iwctl
-	```# iwctl```
+9. If you don't have wired connection but wireless connection. Connect to your wireless connection using iwctl<br>
+	```# iwctl```<br>
 	```# station your-wireless-interface connect SSID```
 10. After that it will ask for wireless network password. Enter the password and check if you have the internet connection by pinging.
 11. Use command lsblk to get the information of disk we currently have.
-12. Use cfdisk command to make parition.
+12. Use cfdisk command to make parition.<br>
 	```# cfdisk /dev/sda``` 
 13. Create at least minimum 300 MB partition size for efi and reset for btrfs partition.
-14. Now we created parition, we need to format it. For efi partition we format it to fat32 file system
+14. Now we created parition, we need to format it. For efi partition we format it to fat32 file system<br>
 	```# mkfs.vfat /dev/sda1```
-15. For btrfs partition,
+15. For btrfs partition,<br>
 	```# mkfs.btrfs /dev/sda2```
 16. Unlike ext4, in btrfs we need to create sub volumes for root, home and var directory.
 17. First mount the sda2 to /mnt
 	```# mount /dev/sda2 /mnt```
 18. Now create sub volumes,
-	```# btrfs subvolume create /mnt/@```
-	```# btrfs subvolume create /mnt/home```
-	```# btrfs subvolume create /mnt/var```
+	```
+	# btrfs subvolume create /mnt/@
+	# btrfs subvolume create /mnt/home
+	# btrfs subvolume create /mnt/var
 19. Now unmount the sda ,
 	```# umount /mnt```
 20. Now mounting root, home and var.
@@ -126,21 +127,28 @@
 17. Running lsblk command we can see extra swap.
 18. Now reboot, we are boot into lightdm login screen.
 19. Setup git.
-	```$ git config --global user.name 'Your Username'```
-	```$ git config --global user.email 'Your Email'```
+	```
+	$ git config --global user.name 'Your Username'
+	$ git config --global user.email 'Your Email'
 20. Setup ssh keys.
-	```$ ssh-keygen -t ed25519 -C 'Your Email'```
+	```
+	$ ssh-keygen -t ed25519 -C 'Your Email'
 21. Install i3status-rust, rofi, thunar, brightnessctl and font-awesome
-	```$ sudo pacman -S i3status-rust rofi awesome-terminal-fonts ttf-font-awesome```
+	```
+	$ sudo pacman -S i3status-rust rofi awesome-terminal-fonts ttf-font-awesome
 22. Login and open terminal. Clone this repo.
-	```$ git clone https://github.com/ishanshre/My-Arch-Linux-Setup-and-Customization.git```
+	```
+	$ git clone https://github.com/ishanshre/My-Arch-Linux-Setup-and-Customization.git
 23. Copy the config files to .config directory
-	```$ cp -r My-Arch-Linux-Setup-and-Customization/config/i3 ~/.config/```
-	```$ cp -r My-Arch-Linux-Setup-and-Customization/config/rofi ~/.config/```
+	```
+	$ cp -r My-Arch-Linux-Setup-and-Customization/config/i3 ~/.config/
+	$ cp -r My-Arch-Linux-Setup-and-Customization/config/rofi ~/.config/
 24.  Copy the rofi theme from the cloned directory to themes of rofi.
-	```$ sudo cp My-Arch-Linux-Setup-and-Customization/config/rofi/catppuccin-mocha.rasi /usr/share/rofi/themes/```
+	```
+	$ sudo cp My-Arch-Linux-Setup-and-Customization/config/rofi/catppuccin-mocha.rasi /usr/share/rofi/themes/
 25. Clone rofi-power-menu from git repo
-	```$ git clone https://github.com/jluttine/rofi-power-menu.git```
+	```
+	$ git clone https://github.com/jluttine/rofi-power-menu.git
 26. Now copy rofi-power-menu to ```~/.locals/bin```
 27. Install firewall.
 	```
