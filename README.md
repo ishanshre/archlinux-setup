@@ -1,4 +1,4 @@
-﻿# My Custom Arch Linux with i3-gaps, btrfs and zram
+﻿My Custom Arch Linux with i3-gaps, btrfs and zram
 
  
 
@@ -164,3 +164,10 @@
 32. Install Docker
 	```
 	$ sudo pacman -S docker docker-compose docker-scan podman-compose podman
+33. Install Fish Shell and Oh-My-Fish
+	```
+	$ sudo pacman -S fish
+	$ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+	$ omf update
+	$ chsh -s /usr/bin/fish $USER
+
