@@ -16,51 +16,66 @@
 8. Mine is US keyboard so,<br>
 	```# loadkeys us```
 9. If you don't have wired connection but wireless connection. Connect to your wireless connection using iwctl<br>
-	```# iwctl```<br>
-	```# station your-wireless-interface connect SSID```
+	```
+	# iwctl
+	# station your-wireless-interface connect SSID
 10. After that it will ask for wireless network password. Enter the password and check if you have the internet connection by pinging.
 11. Use command lsblk to get the information of disk we currently have.
-12. Use cfdisk command to make parition.<br>
-	```# cfdisk /dev/sda``` 
+12. Use cfdisk command to make parition.
+	```
+	# cfdisk /dev/sda
 13. Create at least minimum 300 MB partition size for efi and reset for btrfs partition.
 14. Now we created parition, we need to format it. For efi partition we format it to fat32 file system<br>
-	```# mkfs.vfat /dev/sda1```
-15. For btrfs partition,<br>
-	```# mkfs.btrfs /dev/sda2```
+	```
+	# mkfs.vfat /dev/sda1
+15. For btrfs partition,
+	```
+	# mkfs.btrfs /dev/sda2
 16. Unlike ext4, in btrfs we need to create sub volumes for root, home and var directory.
 17. First mount the sda2 to /mnt
-	```# mount /dev/sda2 /mnt```
+	```
+	# mount /dev/sda2 /mnt
 18. Now create sub volumes,
 	```
 	# btrfs subvolume create /mnt/@
 	# btrfs subvolume create /mnt/home
 	# btrfs subvolume create /mnt/var
 19. Now unmount the sda ,
-	```# umount /mnt```
+	```
+	# umount /mnt
 20. Now mounting root, home and var.
-	```# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt```
+	```
+	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt
 21. Creating efi,home and var directory in /mnt
-	```# mkdir -p /mnt/{boot/efi, home, var)```
+	```
+	# mkdir -p /mnt/{boot/efi, home, var)
 22. Mounting home, var and efi.
-	``` # mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home```
-	``` # mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/sda2 /mnt/var```
-	```# mount /dev/sda1 /mnt/boot/efi```
+	``` 
+	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
+	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/sda2 /mnt/var
+	# mount /dev/sda1 /mnt/boot/efi
 23. Now installing base packages
-	```# pacstrap /mnt base linux linux-firmware git vim btrfs-progs intel-ucode```
+	```
+	# pacstrap /mnt base linux linux-firmware git vim btrfs-progs intel-ucode
 24. Now generating file system table,
-	```# genfstab -U /mnt >> /mnt/etc/fstab```
+	```
+	# genfstab -U /mnt >> /mnt/etc/fstab
 25. Now go to our installed directory or the root directory,
-	```# arch-chroot /mnt```
+	```
+	# arch-chroot /mnt
 26. You can view the fstab using cat command.
 27. Now setting time zone,
-	```# ln -sf /usr/share/zoneinfo/Asia/Nepal /etc/localtime```
+	```
+	# ln -sf /usr/share/zoneinfo/Asia/Nepal /etc/localtime
 28. Synchronize hardware clock to the system clock
-	```# hwclock --systohc```
+	```
+	# hwclock --systohc
 29. Now editing /etc/locale.gen and uncomment your locale. My locale is en_US.UTF-8 UTF-8
 30. Now generating locale by
 	```# locale-gen```
 31. Putting the locale into /etc/locale.conf file using echo command,
-	```# echo "LANG=en_US.UTF-8" >> /etc/locale.conf```
+	```
+	# echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 32. Setting hostname archNepal using echo command,
 	```# echo "archNepal" >> /etc/hostname```
 33. Now configuring /etc/hosts for networks
@@ -71,47 +86,61 @@
 34. Set root password,
 	```# passwd```
 35. Installing base packages,
-	```# pacman -S grub efibootmgr network-manager-applet dialog  wpa_supplicant  mtools dosfstools base-devel linux-headers bluez bluez-utils cups xdg-user-dirs pipewire alsa-utils gvfs```
+	```
+	# pacman -S grub efibootmgr network-manager-applet dialog  wpa_supplicant  mtools dosfstools base-devel linux-headers bluez bluez-utils cups xdg-user-dirs pipewire alsa-utils gvfs
 36. Install Bootloader. Since I am UEFI mode,
-	```# grub-install --target=x86_64-efi efi-directory=/boot/efi --bootloader-id=GRUB```
+	```
+	# grub-install --target=x86_64-efi efi-directory=/boot/efi --bootloader-id=GRUB
 37. Create config file for GRUB
-	```# grub-mkconfig -o /boot/grub/grub.cfg```
+	```
+	# grub-mkconfig -o /boot/grub/grub.cfg
 38. Enabling Services at boot,
-	```# systemctl enable --now NetworkManager.service```
-	```# systemctl enable --now bluetooth```
-	```# systemctl enable --now cups.service```
-	```# systemctl enable fstrim.timer```
+	```
+	# systemctl enable --now NetworkManager.service
+	# systemctl enable --now bluetooth
+	# systemctl enable --now cups.service
+	# systemctl enable fstrim.timer
 39. Creating a New User and add password to it.
-	```# useradd -m username```
-	```# passwd username```
+	```
+	# useradd -m username
+	# passwd username
 40. Add groups to user.
-	```# usermod -aG wheel,video,audio username```
+	```
+	# usermod -aG wheel,video,audio username
 41. Add user to sudoers by command visudo. Uncomment ```wheel ALL=(ALL) ALL
 42. Add btrfs modules in /etc/mkinitcpio.conf
-	```MODULES=(btrfs)```
+	```
+	MODULES=(btrfs)
 43. Recompile the kernel.
-	```# mkinitcpio -P```
+	```
+	# mkinitcpio -P
 44. Now exit the arch-chroot and reboot.
 45. Well arch linux is installed. Now the customization remains
 ## Customizing Arch Linux
 1. After machine boot up, login with user and password.
 2. To connect to a wireless network, use command nmtui and activate a connection. Choose a SSID and enter the password.
 3. Update the system.
-	```$ sudo pacman -Syu```
+	```
+	$ sudo pacman -Syu
 4. Set NTP to true.
-	```$ sudo timedatectl set-ntp true```
+	```
+	$ sudo timedatectl set-ntp true
 5. Now installing display server, display manager and window manager.
-	```$  sudo pacman -S xorg lightdm lightdm-slick-greeter i3 dmenu lxappearance nitrogen archlinux-wallpaper alacritty picom firefox ```
+	```
+	$  sudo pacman -S xorg lightdm lightdm-slick-greeter i3 dmenu lxappearance nitrogen archlinux-wallpaper alacritty picom firefox 
 6. Enable display manager.
-```$ sudo systemctl enable lightdm.service```
+	```
+	$ sudo systemctl enable lightdm.service
 7. Add replace the value of greeter-session in /etc/lightdm/lightdm.conf to lightdm-slick-greeter
 8. Adding arcolinux repository, clone the arcolinux spices.
-	```$ git clone https://github.com/arcolinux/arcolinux-spices.git```
-	```$ sudo ./arcolinux-spices/usr/share/arcolinux-spices/scripts/[get-the-keys-and-repos.sh```
+	```
+	$ git clone https://github.com/arcolinux/arcolinux-spices.git
+	$ sudo ./arcolinux-spices/usr/share/arcolinux-spices/scripts/[get-the-keys-and-repos.sh
 9. Add chaotic repository,
-	```$ sudo`pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com```
-	```$ sudo`pacman-key --lsign-key FBA220DFC880C036```
-	 ```$ sudo`pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'```
+	```
+	$ sudo`pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+	$ sudo`pacman-key --lsign-key FBA220DFC880C036
+	$ sudo`pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 10. Append chaotic mirror repo in /etc/pacman.conf
 	```
 	[chaotic-aur]  
@@ -120,7 +149,8 @@
 12. Now update the system using ```$ sudo pacman -Syu```
 13. Install Paru using ```$ sudo pacman -S paru```
 14. Install timeshift, timeshift-autosnap zramd lightdm-settings.
-	```$ paru -S timeshift timeshift-autosnap zramd lightdm-settings```
+	```
+	$ paru -S timeshift timeshift-autosnap zramd lightdm-settings
 15. Install grub-btrfs using ```$ sudo pacman -S grub-btrfs```
 16. Enabling zram using 
 	```$ sudo systemctl enable --now zramd```
