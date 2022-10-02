@@ -85,9 +85,9 @@
 		127.0.1.1			archNepal.localdomain			archNepal
 34. Set root password,
 	```# passwd```
-35. Installing base packages,
+35. Installing base packages, Network and Audio
 	```
-	# pacman -S grub efibootmgr network-manager-applet dialog  wpa_supplicant  mtools dosfstools base-devel linux-headers bluez bluez-utils cups xdg-user-dirs pipewire alsa-utils gvfs
+	# pacman -S grub efibootmgr network-manager-applet dialog  wpa_supplicant  mtools dosfstools base-devel linux-headers bluez bluez-utils cups xdg-user-dirs pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-utils gvfs 
 36. Install Bootloader. Since I am UEFI mode,
 	```
 	# grub-install --target=x86_64-efi efi-directory=/boot/efi --bootloader-id=GRUB
@@ -165,7 +165,7 @@
 	$ ssh-keygen -t ed25519 -C 'Your Email'
 21. Install i3status-rust, rofi, thunar, brightnessctl and font-awesome
 	```
-	$ sudo pacman -S i3status-rust rofi awesome-terminal-fonts ttf-font-awesome
+	$ sudo pacman -S i3status-rust rofi awesome-terminal-fonts ttf-font-awesome brightnessctl
 22. Login and open terminal. Clone this repo.
 	```
 	$ git clone https://github.com/ishanshre/My-Arch-Linux-Setup-and-Customization.git
@@ -192,7 +192,7 @@
 	$ sudo systemctl enable --now nohang
 29. Install jdk, google chrome, vscode and ntfs
 	```
-	$    sudo pacman -S ntfs-3g, jdk, google-chrome code
+	$ sudo pacman -S ntfs-3g, jdk, google-chrome code
 30. Install sweet-nova theme and candy icons
 	```
 	$ sudo pacman -S candy-icons-git sweet-cursor-theme
