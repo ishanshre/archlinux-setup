@@ -208,5 +208,73 @@
 	$ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 	$ omf update
 	$ chsh -s /usr/bin/fish $USER
-34. Samples
+34. Installing and Configuring Tor (Taken from Arch Wiki)
+	- Install tor and nyx package and start tor
+	```
+	$ sudo pacman -S tor nyx
+	$ sudo systemctl start tor
+	
+	- Open Tor control port and set control cookie
+	
+	```
+	$ sudo nano /etc/tor/torrec
+	ControlPort 9051
+	CookieAuthentication 1
+	CookieAuthFile /var/lib/tor/control_auth_cookie
+	CookieAuthFileGroupReadable 1
+	DataDirectoryGroupReadable 1
+	
+	- Add tor to user group and restart tor
+	```
+	$ sudo usermod -aG tor $USER
+	$ newgrp tor
+	$ sudo systemctl restart tor
+	
+	- Check if user has access to tor cookie file. Result should display 750 and 640
+	```
+	$ stat -c%a /var/lib/tor /var/lib/tor/control_auth_cookie
+	
+	- Set a Tor control password (Must disable histroy for security purpose when creating password
+	```
+	$ sudo set +o history # unset bash history
+	$ sudo tor --hashed-password <your password>
+	$ sudo set -o history
+	
+	- Add hashed password to torrec file
+	```
+	$ sudo nano /etc/tor/torrec
+	HashedControlPassword <your hashed password>
+	
+	- Open Tor Control Socket (Append to torrec file)
+	```
+	$ sudo nano /etc/tor/torre
+	ControlSocket /var/lib/tor/control_socket
+	ControlSocketsGroupWritable 1
+	DataDirectoryGroupReadable 1
+	CacheDirectoryGroupReadable 1
+	
+	- Restart tor and verify status of control socket. Test should return 750 and 660
+	```
+	$ sudo systemctl restart tor
+	$ sudo stat -c%a /var/lib/tor /var/lib/tor/control_socket
+	
+	- Testing tor control using netcat and socat
+	```
+	$ sudo pacman -S netcat socat
+	$ echo -e 'PROTOCOLINFO\r\n' | nc 127.0.0.1 9051
+	$ echo -e 'PROTOCOLINFO\r\n' | sudo -u $USER socat - UNIX-CLIENT:/var/lib/tor/control_socket
+	Result
+	250-PROTOCOLINFO 1
+	250-AUTH METHODS=COOKIE,SAFECOOKIE,HASHEDPASSWORD COOKIEFILE="/var/lib/tor/control_auth_cookie"
+	250-VERSION Tor="0.4.7.10"
+	250 OK
+	514 Authentication required.
+	
+	- Installing Tor browser
+	```
+	$ sudo pacman -S torbrowser-launcher
+	
+	- Launch torbrowser-launcher to configure and install tor browser
+	
+36. Samples
 	![Sample1](1.png)
