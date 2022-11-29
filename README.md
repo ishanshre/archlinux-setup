@@ -45,14 +45,14 @@
 	# umount /mnt
 20. Now mounting root, home and var.
 	```
-	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt
+	# mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/sda2 /mnt
 21. Creating efi,home and var directory in /mnt
 	```
-	# mkdir -p /mnt/{boot/efi, home, var)
+	# mkdir -p /mnt/{boot/efi,home,var}
 22. Mounting home, var and efi.
 	``` 
-	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
-	# mount -o noatime, compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/sda2 /mnt/var
+	# mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /dev/sda2 /mnt/home
+	# mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/sda2 /mnt/var
 	# mount /dev/sda1 /mnt/boot/efi
 23. Now installing base packages
 	```
@@ -66,7 +66,7 @@
 26. You can view the fstab using cat command.
 27. Now setting time zone,
 	```
-	# ln -sf /usr/share/zoneinfo/Asia/Nepal /etc/localtime
+	# ln -sf /usr/share/zoneinfo/Asia/Kathmandu /etc/localtime
 28. Synchronize hardware clock to the system clock
 	```
 	# hwclock --systohc
@@ -96,9 +96,9 @@
 	# grub-mkconfig -o /boot/grub/grub.cfg
 38. Enabling Services at boot,
 	```
-	# systemctl enable --now NetworkManager.service
-	# systemctl enable --now bluetooth
-	# systemctl enable --now cups.service
+	# systemctl enable NetworkManager.service
+	# systemctl enable bluetooth
+	# systemctl enable cups.service
 	# systemctl enable fstrim.timer
 39. Creating a New User and add password to it.
 	```
@@ -106,7 +106,7 @@
 	# passwd username
 40. Add groups to user.
 	```
-	# usermod -aG wheel,video,audio username
+	# usermod -aG wheel,video,audio,power,lp username
 41. Add user to sudoers by command visudo. Uncomment ```wheel ALL=(ALL) ALL
 42. Add btrfs modules in /etc/mkinitcpio.conf
 	```
@@ -138,9 +138,9 @@
 	$ sudo ./arcolinux-spices/usr/share/arcolinux-spices/scripts/[get-the-keys-and-repos.sh
 9. Add chaotic repository,
 	```
-	$ sudo`pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
-	$ sudo`pacman-key --lsign-key FBA220DFC880C036
-	$ sudo`pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+	$ sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+	$ sudo pacman-key --lsign-key FBA220DFC880C036
+	$ sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 10. Append chaotic mirror repo in /etc/pacman.conf
 	```
 	[chaotic-aur]  
@@ -274,6 +274,30 @@
 	$ sudo pacman -S torbrowser-launcher
 	
 - Launch torbrowser-launcher to configure and install tor browser
-	
-36. Samples
+
+36. Enable autotitling windows in i3wm
+	'''
+	$ sudo pacman -S autotiling python-i3ipc
+
+37. Install Clamav. Clamav is an opensource antivirus engine
+	'''
+	$ sudo pacman -S clamav
+	$ sudo freshclam
+	$ sudo systemctl enable --now clamav-freshclam.service
+	$ sudo systemctl enable --now clamav-daemon.service
+	$ sudo pacman -S clamtk
+	$ git clone https://github.com/dave-theunsub/thunar-sendto-clamtk.git
+	$ cd thunar-sendto-clamtk
+	$ cp thunar-sendto-clamtk.desktop ~/.local/share/Thunar/sendto/
+
+38. Set the limit for memory and cpu for clamav. By default clamav loads its database to memory. Usually it occupies at least 1 GB RAM. So add the following lines to the service section in file ```/usr/lib/systemd/system/clamav-daemon.service```
+	```
+	IOSchedulingPriority = 7
+	CPUSchedulingPolicy = 5
+	MemoryLimit=256M
+	CPUQuota=10%
+	Nice = 19
+
+
+38. Samples
 	![Sample1](1.png)

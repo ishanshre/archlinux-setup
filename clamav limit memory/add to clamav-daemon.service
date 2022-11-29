@@ -1,0 +1,8 @@
+In service section add the following lines
+
+
+IOSchedulingPriority = 7
+CPUSchedulingPolicy = 5
+MemoryLimit=256M
+CPUQuota=10%
+Nice = 19
