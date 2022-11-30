@@ -276,11 +276,11 @@
 - Launch torbrowser-launcher to configure and install tor browser
 
 36. Enable autotitling windows in i3wm
-	'''
+	```
 	$ sudo pacman -S autotiling python-i3ipc
 
 37. Install Clamav. Clamav is an opensource antivirus engine
-	'''
+	```
 	$ sudo pacman -S clamav
 	$ sudo freshclam
 	$ sudo systemctl enable --now clamav-freshclam.service
