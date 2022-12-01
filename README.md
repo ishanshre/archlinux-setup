@@ -208,6 +208,8 @@
 	$ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 	$ omf update
 	$ chsh -s /usr/bin/fish $USER
+	$ omf install budspencer
+	$ set -U budspencer_nogreeting
 34. Installing and Configuring Tor (Taken from Arch Wiki)
 - Install tor and nyx package and start tor
 	```
