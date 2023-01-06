@@ -192,7 +192,7 @@
 	$ sudo systemctl enable --now nohang
 29. Install jdk, google chrome, vscode and ntfs
 	```
-	$ sudo pacman -S ntfs-3g, jdk, google-chrome code
+	$ sudo pacman -S ntfs-3g jdk google-chrome code
 30. Install sweet-nova theme and candy icons
 	```
 	$ sudo pacman -S candy-icons-git sweet-cursor-theme
