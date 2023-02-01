@@ -168,7 +168,7 @@
 	$ sudo pacman -S i3status-rust rofi awesome-terminal-fonts ttf-font-awesome brightnessctl
 22. Login and open terminal. Clone this repo.
 	```
-	$ git clone https://github.com/ishanshre/My-Arch-Linux-Setup-and-Customization.git
+	$ git clone https://github.com/ishanshre/archlinux-setup.git
 23. Copy the config files to .config directory
 	```
 	$ cp -r My-Arch-Linux-Setup-and-Customization/config/i3 ~/.config/
