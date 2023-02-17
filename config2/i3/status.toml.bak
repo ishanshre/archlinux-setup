@@ -1,0 +1,54 @@
+icons = "awesome"
+[theme]
+name = "dracula"
+[theme.overrides]
+idle_bg = "#243155"
+idle_fg = "#F8F8F2"
+alternating_tint_bg="#5400A8"
+good_bg="#A6E22E"
+warning_bg="#da0b5e"
+
+
+[[block]]
+block = "custom"
+command = "echo \uf4f9" # assumes fontawesome icons
+on_click = "rofi -show drun"
+
+[[block]]
+block = "battery"
+driver = "upower"
+format = "{percentage} {time}"
+
+[[block]]
+block = "cpu"
+
+[[block]]
+block = "memory"
+format_mem = "{mem_used}/{mem_total}({mem_used_percents})"
+format_swap = "{swap_used}/{swap_total}({swap_used_percents})"
+display_type = "memory"
+icons = true
+clickable = true
+interval = 5
+warning_mem = 80
+warning_swap = 80
+critical_mem = 95
+critical_swap = 95
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%A | %d %B, %Y | %I:%M"
+
+[[block]]
+block = "custom"
+command = "echo \uf011" # assumes fontawesome icons
+on_click = "rofi -show power-menu -modi power-menu:~/.local/bin/rofi-power-menu"
+
