@@ -301,5 +301,46 @@
 	Nice = 19
 
 
-38. Samples
+39. Samples
 	![Sample1](1.png)
+
+
+## Installing Hyprland (Alternative)
+
+1. Install Paru
+```
+$ git clone https://aur.archlinux.org/paru.git
+$ cd paru
+$ makepkg -si
+```
+
+2. Install necessary packages for hyprland
+```
+paru -S hyprland-git polkit-kde-agent dunst grimblast rofi rofi-emoji wl-clipboard wf-recorder \ wlogout grimblast-git hyprpicker-git hyprpaper-git xdg-desktop-portal-hyprland-git \
+ffmpegthumbnailer tumbler wtype colord imagemagick swaylock-effects qt5-wayland qt6-wayland \
+ripgrep waybar-hyprland-git catppuccin-gtk-theme-mocha catppuccin-cursors-mocha \ catppuccin-mocha-grub-theme-git nwg-look cava pavucontrol ranger zsh starship neovim viewnior \ noise-suppression-for-voice thunar thunar-archive-plugin file-roller sddm-git
+```
+
+3. Start hyprland at start
+```
+$ touch .autostart
+$ nano .autostart
+```
+
+## .autostart
+```
+#!/bin/bash
+sleep 1
+killall xdg-desktop-portal-hyprland
+killall xdg-desktop-portal-wlr
+killall xdg-desktop-portal
+/usr/libexec/xdg-desktop-portal-hyprland &
+sleep 2
+/usr/lib/xdg-desktop-portal &
+
+```
+
+4. Enable sddm at start
+```
+# systemctl enable sddm.service
+```
