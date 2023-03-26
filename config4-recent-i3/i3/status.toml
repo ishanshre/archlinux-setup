@@ -1,0 +1,53 @@
+[theme]
+theme = "native"
+
+[icons]
+icons = "material-nf"
+
+
+
+[[block]]
+block = "battery"
+driver = "upower"
+format = "{percentage} {time}"
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+
+[[block]]
+block = "cpu"
+format = '<span color="#66cccc" font_family="unifont">$barchart</span> $utilization'
+interval = 1
+
+[[block]]
+block = "memory"
+format = "   $mem_used_percents.eng(w:2)"
+interval = 1
+
+
+[[block]]
+block = "sound"
+
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+device_kind = "source"
+
+[[block]]
+block = "time"
+interval = 0.2
+format = "  $timestamp.datetime(f:'%a %d %b %Y')  $timestamp.datetime(f:'%I:%M')"
+
+
+[[block]]
+# block to show the number of systemd failures
+block = "custom"
+interval = 60
+json = true
+command = '''printf '{"icon": "weather_thunder", "state": "Warning", "text": "%s"}' $(echo "$(($(systemctl --state=failed -q | wc -l)+$(systemctl --user --state=failed -q | wc -l)))" | tr -d 0)'''
+hide_when_empty = true
+[block.theme_overrides]
+warning_fg = "#000000"
+warning_bg = "#ebcb8b"  # yellow
