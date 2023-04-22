@@ -1,0 +1,19 @@
+/** Basic config file **/
+
+configuration{
+    modi: "run,drun,window";
+    icon-theme: "BeautyLine";
+    show-icons: true;
+    terminal: "terminal";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+    display-window: " 﩯  Window";
+    display-Network: " 󰤨  Network";
+    sidebar-mode: true;
+}
+
+@theme "/usr/share/rofi/themes/catppuccin-mocha.rasi"
