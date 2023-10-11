@@ -48,10 +48,10 @@
 18. Now create sub volumes,
 	```
 	# btrfs subvolume create /mnt/@
-	# btrfs subvolume create /mnt/home
-	# btrfs subvolume create /mnt/var
-	# btrfs subvolume create /mnt/opt
-	# btrfs subvolume create /mnt/tmp
+	# btrfs subvolume create /mnt/@home
+	# btrfs subvolume create /mnt/@var
+	# btrfs subvolume create /mnt/@opt
+	# btrfs subvolume create /mnt/@tmp
 	```
 
 19. Now unmount the sda ,
@@ -80,7 +80,7 @@
 
 23. Now installing base packages
 	```
-	# pacstrap /mnt base linux linux-firmware git vim btrfs-progs intel-ucode
+	# pacstrap /mnt base linux linux-firmware git vim btrfs-progs amd-ucode
 	```
 
 24. Now generating file system table,
@@ -116,9 +116,9 @@
 	```# echo "archNepal" >> /etc/hostname```
 33. Now configuring /etc/hosts for networks
 	```	  
-		127.0.0.1			localhost
-		::1					localhost
-		127.0.1.1			archNepal.localdomain			archNepal
+		127.0.0.1	localhost
+		::1		localhost
+		127.0.1.1	archNepal.localdomain	archNepal
 	```
 	
 34. Set root password,
@@ -201,7 +201,7 @@
 	$ sudo ./arcolinux-spices/usr/share/arcolinux-spices/scripts/[get-the-keys-and-repos.sh
 	```
 	
-9. Add chaotic repository,
+9. Add chaotic repository (key may change),
 	```
 	$ sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
 	$ sudo pacman-key --lsign-key FBA220DFC880C036
