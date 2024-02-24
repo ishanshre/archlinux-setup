@@ -1,0 +1,24 @@
+wallpaper: "/home/ishan/Pictures/wallpapers/Courtside-Sunset.png"
+
+special:
+    background: "#0a0909"
+    foreground: "#b5aeb7"
+    cursor: "#b5aeb7"
+
+colors:
+    color0: "#0a0909"
+    color1: "#324A70"
+    color2: "#5C536B"
+    color3: "#A8502A"
+    color4: "#9F5E63"
+    color5: "#E1675B"
+    color6: "#ED9265"
+    color7: "#b5aeb7"
+    color8: "#7e7980"
+    color9: "#324A70"
+    color10: "#5C536B"
+    color11: "#A8502A"
+    color12: "#9F5E63"
+    color13: "#E1675B"
+    color14: "#ED9265"
+    color15: "#b5aeb7"

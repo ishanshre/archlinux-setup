@@ -1,0 +1,21 @@
+set $wallpaper /home/ishan/Pictures/wallpapers/Courtside-Sunset.png
+
+set $background #0a0909
+set $foreground #b5aeb7
+
+set $color0 #0a0909
+set $color1 #324A70
+set $color2 #5C536B
+set $color3 #A8502A
+set $color4 #9F5E63
+set $color5 #E1675B
+set $color6 #ED9265
+set $color7 #b5aeb7
+set $color8 #7e7980
+set $color9 #324A70
+set $color10 #5C536B
+set $color11 #A8502A
+set $color12 #9F5E63
+set $color13 #E1675B
+set $color14 #ED9265
+set $color15 #b5aeb7

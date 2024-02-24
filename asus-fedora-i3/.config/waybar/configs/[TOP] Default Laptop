@@ -1,0 +1,40 @@
+{
+	"include": "~/.config/waybar/modules",
+	"layer": "top",
+	//"mode": "dock",
+	"exclusive": true,
+	"passthrough": false,
+	"position": "top",
+	"spacing": 3,
+	"fixed-center": true,
+	"ipc": true,
+	"margin-top": 1,
+	"margin-bottom": 1,
+	"margin-left": 6,
+	"margin-right": 6,
+	
+	"modules-left": [
+		"hyprland/workspaces#4",
+		"cpu",
+		"memory",
+		"temperature",
+		"backlight",
+		"custom/cava_mviz"
+		],
+	
+	"modules-center": [
+		"custom/menu",
+		"clock",
+		"custom/lock"
+		], 
+	
+	"modules-right": [
+		"network#speed",
+		"battery",
+		"pulseaudio",
+		"pulseaudio#microphone",
+		"tray",
+		"custom/swaync",
+		"custom/power"
+		]
+	}

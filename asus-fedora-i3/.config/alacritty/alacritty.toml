@@ -1,0 +1,27 @@
+import = ["~/.config/alacritty/dracula.toml"]
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "Cascadia Code"
+style = "Bold"
+
+[font.bold_italic]
+family = "Cascadia Code"
+style = "Bold Italic"
+
+[font.italic]
+family = "Cascadia Code"
+style = "Italic"
+
+[font.normal]
+family = "Cascadia Code"
+style = "Regular"
+
+[window]
+padding = { x = 3, y = 3 }
+dynamic_padding = true
+opacity = 1
+
+
